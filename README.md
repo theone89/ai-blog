@@ -19,7 +19,7 @@ Blog AI es una innovadora herramienta de generación de artículos que se basa e
 
 1. Clona el repositorio:
     ```bash
-    git clone https://github.com/tu-usuario/blog-ai.git
+    [git clone https://github.com/tu-usuario/blog-ai.git](https://github.com/theone89/blog-ai)
     cd blog-ai
     ```
 
