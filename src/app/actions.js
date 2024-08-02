@@ -10,7 +10,7 @@ export async function generate(input) {
     const stream = createStreamableValue();
 
     (async () => {
-        const { partialObjectStream, object } = await streamObject({
+        const { partialObjectStream } = await streamObject({
             model: openai("gpt-4o-mini"),
             system: `Define una estrategia: Antes de comenzar a escribir, es importante tener una estrategia clara. Esto incluye entender a tu público objetivo, los objetivos de tu blog y cómo planeas alcanzarlos1.
 Selecciona un tema principal: Elige un tema que sea relevante para tu audiencia y que esté alineado con los objetivos de tu blog1.
