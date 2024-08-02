@@ -148,7 +148,7 @@ export default function Home() {
                       />
                     )}
                     <h1 className="text-2xl font-bold"></h1>
-                    <h1 className="text-2xl font-bold">Importante</h1>
+                    <h1 className="text-2xl font-bold">Desarrollo:</h1>
                     <p className="mb-4">{blog?.text?.development}</p>
                   </div>
                   <div>
