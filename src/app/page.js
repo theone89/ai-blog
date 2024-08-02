@@ -6,6 +6,7 @@ import { readStreamableValue } from "ai/rsc";
 import { z } from "zod";
 import Image from "next/image";
 import { createApi } from "unsplash-js";
+import IdeaICON from '/public/ideas-repec.svg'
 
 // Allow streaming responses up to 30 seconds
 export const maxDuration = 30;
@@ -191,38 +192,80 @@ export default function Home() {
     <div>
       <div className="container mx-auto ">
         {!generation ? (
-          <div className="grid gap-4 pt-24 justify-center">
-            <div className="flex items-center gap-4">
-              <Clock1Icon className="bg-primary text-primary-foreground rounded-full w-8 h-8 flex items-center justify-center" />
+          <div className="grid  pt-12 justify-center">
+            <h1 className="text-center font-bold text-2xl">Blog AI</h1>
+            <h3 className="text-justify">Blog AI es una innovadora herramienta de generación de artículos que se basa en un prompt definido por el usuario. A partir de la información proporcionada, la aplicación edita tanto el contenido textual como las imágenes, presentándolos al usuario en un formato predefinido. Las imágenes son seleccionadas automáticamente por la IA en función de una palabra clave relevante al contexto proporcionado por el usuario, garantizando una integración coherente y atractiva.</h3>
+            <div className="flex items-center">
+              <Image
+                src="/ideas-repec.svg"
+                alt="Vercel Logo"
+                className="bg-primary text-primary-foreground rounded-full flex items-center justify-center"
+                width={100}
+                height={100}
+                priority
+              />
+
               <div>
                 <h3 className="text-lg font-medium">Proporcionar la idea:</h3>
                 <p className="text-muted-foreground">Introduce la idea del blog en el campo de texto del prompt.</p>
               </div>
             </div>
-            <div className="flex items-center gap-4">
-              <Link2Icon className="bg-primary text-primary-foreground rounded-full w-8 h-8 flex items-center justify-center" />
+            <div className="flex items-center">
+              <Image
+                src="/file-search-outlined.svg"
+                alt="Vercel Logo"
+                className="bg-primary text-primary-foreground rounded-full flex items-center justify-center"
+                width={100}
+                height={100}
+                priority
+              />
+
               <div>
                 <h3 className="text-lg font-medium">Generar y revisar:</h3>
                 <p className="text-muted-foreground"> La app generará el contenido. Revisa y personaliza según tus preferencias.
                 </p>
               </div>
             </div>
-            <div className="flex items-center gap-4">
-              <Music3Icon className="bg-primary text-primary-foreground rounded-full w-8 h-8 flex items-center justify-center" />
+            <div className="flex items-center">
+              <Image
+                src="/cursor-hand-click-line.svg"
+                alt="Vercel Logo"
+                className="bg-primary text-primary-foreground rounded-full flex items-center justify-center"
+                width={100}
+                height={100}
+                priority
+              />
+
               <div>
                 <h3 className="text-lg font-medium">Ver el JSON: </h3>
                 <p className="text-muted-foreground"> Accede a la opción para ver el contenido en formato JSON.</p>
               </div>
             </div>
-            <div className="flex items-center gap-4">
-              <FlagIcon className="bg-primary text-primary-foreground rounded-full w-8 h-8 flex items-center justify-center" />
+            <div className="flex items-center">
+              <Image
+                src="/copy.svg"
+                alt="Vercel Logo"
+                className="bg-primary text-primary-foreground rounded-full flex items-center justify-center"
+                width={100}
+                height={100}
+                priority
+              />
+
               <div>
                 <h3 className="text-lg font-medium">Copiar el JSON:</h3>
                 <p className="text-muted-foreground"> Copia la información en formato JSON para usarla en otras aplicaciones.</p>
               </div>
             </div>
-            <div className="flex items-center gap-4">
-              <FlagIcon className="bg-primary text-primary-foreground rounded-full w-8 h-8 flex items-center justify-center" />
+            <div className="flex items-center">
+              <Image
+                src="/flag.svg"
+                alt="Vercel Logo"
+                className="bg-primary text-primary-foreground rounded-full flex items-center justify-center"
+                width={100}
+                height={100}
+                priority
+              />
+
               <div>
                 <h3 className="text-lg font-medium">Verificar el resultado final</h3>
                 <p className="text-muted-foreground">Asegúrate de que el resultado final cumpla con tus expectativas.</p>
@@ -248,7 +291,7 @@ export default function Home() {
                 <h3 className="text-xl font-semibold mb-2">{blog?.author}</h3>
               </div>
               <div className="mb-4">
-                {!data || !data?.response?.results[0].id ? (
+                {!data?.response?.results[0].id ? (
                   "IsLoading..."
                 ) : (
                   <PhotoComp
@@ -279,7 +322,7 @@ export default function Home() {
                 <p className="mb-4">{blog?.text?.introduction}</p>
                 <div className=" text-justify md:grid  md:grid-cols-2 gap-1 mx-2">
                   <div className=" mr-2">
-                    {!data || !data?.response?.results[1].id ? (
+                    {!data?.response?.results[1].id ? (
                       "IsLoading..."
                     ) : (
                       <PhotoComp
@@ -298,7 +341,7 @@ export default function Home() {
                   </div>
                   <div>
                     <p className="mb-4">{blog?.text?.development2}</p>
-                    {!data || !data?.response?.results[2].id ? (
+                    {!data?.response?.results[2].id ? (
                       "IsLoading..."
                     ) : (
                       <PhotoComp
