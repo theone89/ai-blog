@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Blog AI
 
-## Getting Started
+Blog AI es una innovadora herramienta de generación de artículos que se basa en un prompt definido por el usuario. A partir de la información proporcionada, la aplicación edita tanto el contenido textual como las imágenes, presentándolos al usuario en un formato predefinido. Las imágenes son seleccionadas automáticamente por la IA en función de una palabra clave relevante al contexto proporcionado por el usuario, garantizando una integración coherente y atractiva.
 
-First, run the development server:
+## Tecnologías Utilizadas
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Next.js**: Framework de React para aplicaciones web.
+- **Vercel AI SDK**: SDK para integrar capacidades de inteligencia artificial.
+- **Unsplash API**: API para obtener imágenes de alta calidad.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Requisitos Previos
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- Node.js
+- npm o yarn
+- Cuenta en OpenAI para obtener la API Key
+- Cuenta en Unsplash para obtener la API Key
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Instalación
 
-## Learn More
+1. Clona el repositorio:
+    ```bash
+    git clone https://github.com/tu-usuario/blog-ai.git
+    cd blog-ai
+    ```
 
-To learn more about Next.js, take a look at the following resources:
+2. Instala las dependencias:
+    ```bash
+    npm install
+    # o
+    yarn install
+    ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. Configura las variables de entorno:
+    Crea un archivo `.env.local` en la raíz del proyecto y añade tus API Keys de OpenAI y Unsplash:
+    ```env
+    NEXT_PUBLIC_OPENAI_API_KEY=tu-api-key
+    NEXT_PUBLIC_UNSPLASH_API_KEY=tu-api-key
+    ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Uso
 
-## Deploy on Vercel
+1. Inicia el servidor de desarrollo:
+    ```bash
+    npm run dev
+    # o
+    yarn dev
+    ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2. Abre http://localhost:3000 en tu navegador para ver la aplicación.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Contribuciones
+
+Las contribuciones son bienvenidas. Por favor, abre un issue o un pull request para discutir cualquier cambio que te gustaría hacer.
+
+## Licencia
+
+Este proyecto está bajo la Licencia MIT. Consulta el archivo LICENSE para más detalles.
