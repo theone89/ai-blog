@@ -38,6 +38,92 @@ const PhotoComp = ({ photo, size, style }) => {
     </Fragment>
   );
 };
+
+
+
+function Clock1Icon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="12" cy="12" r="10" />
+      <polyline points="12 6 12 12 14.5 8" />
+    </svg>
+  )
+}
+
+
+function FlagIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" />
+      <line x1="4" x2="4" y1="22" y2="15" />
+    </svg>
+  )
+}
+
+
+function Link2Icon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M9 17H7A5 5 0 0 1 7 7h2" />
+      <path d="M15 7h2a5 5 0 1 1 0 10h-2" />
+      <line x1="8" x2="16" y1="12" y2="12" />
+    </svg>
+  )
+}
+
+
+function Music3Icon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="12" cy="18" r="4" />
+      <path d="M16 18V2" />
+    </svg>
+  )
+}
 /**
  * This is the main function of the Home component. It handles the user input, generates a blog post, and displays the content.
  *
@@ -104,6 +190,46 @@ export default function Home() {
   return (
     <div>
       <div className="container mx-auto ">
+        {!generation ? (
+          <div className="grid gap-4 pt-24 justify-center">
+            <div className="flex items-center gap-4">
+              <Clock1Icon className="bg-primary text-primary-foreground rounded-full w-8 h-8 flex items-center justify-center" />
+              <div>
+                <h3 className="text-lg font-medium">Proporcionar la idea:</h3>
+                <p className="text-muted-foreground">Introduce la idea del blog en el campo de texto del prompt.</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-4">
+              <Link2Icon className="bg-primary text-primary-foreground rounded-full w-8 h-8 flex items-center justify-center" />
+              <div>
+                <h3 className="text-lg font-medium">Generar y revisar:</h3>
+                <p className="text-muted-foreground"> La app generará el contenido. Revisa y personaliza según tus preferencias.
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-4">
+              <Music3Icon className="bg-primary text-primary-foreground rounded-full w-8 h-8 flex items-center justify-center" />
+              <div>
+                <h3 className="text-lg font-medium">Ver el JSON: </h3>
+                <p className="text-muted-foreground"> Accede a la opción para ver el contenido en formato JSON.</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-4">
+              <FlagIcon className="bg-primary text-primary-foreground rounded-full w-8 h-8 flex items-center justify-center" />
+              <div>
+                <h3 className="text-lg font-medium">Copiar el JSON:</h3>
+                <p className="text-muted-foreground"> Copia la información en formato JSON para usarla en otras aplicaciones.</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-4">
+              <FlagIcon className="bg-primary text-primary-foreground rounded-full w-8 h-8 flex items-center justify-center" />
+              <div>
+                <h3 className="text-lg font-medium">Verificar el resultado final</h3>
+                <p className="text-muted-foreground">Asegúrate de que el resultado final cumpla con tus expectativas.</p>
+              </div>
+            </div>
+          </div>
+        ) : ''}
         {generation?.blogs?.map((blog, index) => (
           <div key={index} className="prose lg:prose-xl mx-auto">
             <div className="">
