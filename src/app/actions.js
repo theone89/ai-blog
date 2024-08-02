@@ -4,6 +4,15 @@ import { openai } from "@ai-sdk/openai";
 import { createStreamableValue } from "ai/rsc";
 import { z } from "zod";
 
+/**
+ * This function generates a blog post content based on the provided input.
+ * It uses the OpenAI API to generate the content and returns it as a stream.
+ *
+ * @param {string} input - The input text for generating the blog post content.
+ * @returns {object} - An object containing the generated blog post content as a stream.
+ */
+
+
 export async function generate(input) {
     "use server";
 

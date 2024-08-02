@@ -38,7 +38,11 @@ const PhotoComp = ({ photo, size, style }) => {
     </Fragment>
   );
 };
-
+/**
+ * This is the main function of the Home component. It handles the user input, generates a blog post, and displays the content.
+ *
+ * @returns {JSX.Element} - The Home component.
+ */
 export default function Home() {
   const [data, setPhotosResponse] = useState();
 
@@ -49,11 +53,22 @@ export default function Home() {
   const [copied, setCopied] = useState(false);
   const [generation, setGeneration] = useState();
 
+
+
+  /**
+   * This function handles the checkbox change event. It updates the 'check' state with the new checkbox value.
+   *
+   * @param {React.ChangeEvent<HTMLInputElement>} e - The change event.
+   */
   function handleChange(e) {
     const { checked } = e.target;
     setCheck(checked);
   }
 
+  /**
+   * This function copies the JSON representation of the 'generation' state to the clipboard.
+   * It uses the 'navigator.clipboard' API to write the text to the clipboard.
+   */
   const copyCode = () => {
     const code = codeRef.current?.innerText;
     if (code) {
@@ -67,6 +82,10 @@ export default function Home() {
     setCopied(!copied);
   };
 
+  /**
+   * This function fetches images from the Unsplash API based on the 'generation' state.
+   * It uses the 'unsplash-js' library to make API requests.
+   */
   function getImagesAPi() {
     api.search
       .getPhotos({
