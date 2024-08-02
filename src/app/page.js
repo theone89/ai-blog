@@ -103,7 +103,7 @@ export default function Home() {
                 <h3 className="text-xl font-semibold mb-2">{blog?.author}</h3>
               </div>
               <div className="mb-4">
-                {!data ? (
+                {!data || !data?.response?.results[0].id ? (
                   "IsLoading..."
                 ) : (
                   <PhotoComp
@@ -134,7 +134,7 @@ export default function Home() {
                 <p className="mb-4">{blog?.text?.introduction}</p>
                 <div className=" text-justify md:grid  md:grid-cols-2 gap-1 mx-2">
                   <div className=" mr-2">
-                    {!data ? (
+                    {!data || !data?.response?.results[1].id ? (
                       "IsLoading..."
                     ) : (
                       <PhotoComp
@@ -143,7 +143,7 @@ export default function Home() {
                           height: 500,
                         }}
                         style={" object-cover"}
-                        key={data?.response?.results[1].id}
+                        key={data?.response?.results[1]?.id}
                         photo={data?.response?.results[1]}
                       />
                     )}
@@ -153,7 +153,7 @@ export default function Home() {
                   </div>
                   <div>
                     <p className="mb-4">{blog?.text?.development2}</p>
-                    {!data ? (
+                    {!data || !data?.response?.results[2].id ? (
                       "IsLoading..."
                     ) : (
                       <PhotoComp
@@ -172,6 +172,7 @@ export default function Home() {
                 <p className="mb-4">{blog?.text?.conclusions}</p>
               </article>
               {blog.images ? getImagesAPi() : "no hay imagen"}
+
             </div>
           </div>
         ))}
