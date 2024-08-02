@@ -378,7 +378,7 @@ export default function Home() {
                 <h1 className="text-2xl font-bold">Conclusiones:</h1>
                 <p className="mb-4">{blog?.text?.conclusions}</p>
               </article>
-
+              {blog.images ? getImagesAPi() : "no hay imagenes"}
 
             </div>
           </div>
@@ -405,8 +405,8 @@ export default function Home() {
           ""
         )
       }
-      <div className="flex flex-col w-full max-w-md b py-24 mx-auto stretch">
-        <div className="fixed bottom-0 w-full  backdrop-blur-sm max-w-md  p-2 mb-8 border  border-gray-300 rounded shadow-xl">
+      <div className="flex flex-col w-full max-w-md b py-24 mx-auto stretch ">
+        <div className="fixed bottom-0 w-full   backdrop-blur-sm max-w-md  p-2 mb-8 border  border-gray-300 rounded shadow-xl">
           <div className="flex justify-between ">
             <input
               type="text"
@@ -433,7 +433,7 @@ export default function Home() {
                 }
 
 
-                getImagesAPi(generation?.blog?.images)
+
 
                 setIsLoading(false)
               }}
