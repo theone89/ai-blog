@@ -4,7 +4,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Ai Blog",
+  title: "Blog AI",
   description: "App generadora de contenido para un blog",
 };
 
