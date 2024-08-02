@@ -3,7 +3,7 @@
 import { useRef, useState, Fragment } from "react";
 import { generate } from "./actions";
 import { readStreamableValue } from "ai/rsc";
-import { z } from "zod";
+import { set, z } from "zod";
 import Image from "next/image";
 import { createApi } from "unsplash-js";
 import IdeaICON from '/public/ideas-repec.svg'
@@ -125,6 +125,99 @@ function Music3Icon(props) {
     </svg>
   )
 }
+
+function InfoApp() {
+  return (
+    <div className="  pt-12 justify-center w-full">
+      <h1 className="text-center font-bold text-4xl">Blog AI</h1>
+      <div>
+        <h2 className="text-lg text-start hover:underline transition duration-500  hover:underline-offset-8  font-extrabold p-6">¿Que es?</h2>
+        <h3 className="text-justify">Blog AI es una innovadora herramienta de generación de artículos que se basa en un prompt definido por el usuario. A partir de la información proporcionada, la aplicación edita tanto el contenido textual como las imágenes, presentándolos al usuario en un formato predefinido. Las imágenes son seleccionadas automáticamente por la IA en función de una palabra clave relevante al contexto proporcionado por el usuario, garantizando una integración coherente y atractiva.</h3>
+      </div>
+      <div className="w-full">
+        <h2 className="text-lg text-start hover:underline transition duration-500  hover:underline-offset-8  font-extrabold p-6">¿Como se usa?</h2>
+        <div className="flex items-center ">
+          <Image
+            src="/ideas-repec.svg"
+            alt="Vercel Logo"
+            className="bg-primary text-primary-foreground transition duration-500  rounded-full flex items-center justify-center"
+            width={100}
+            height={100}
+            priority
+          />
+
+          <div >
+            <h3 className="text-lg font-medium">Proporcionar la idea:</h3>
+            <p className="text-muted-foreground">Introduce la idea del blog en el campo de texto del prompt.</p>
+          </div>
+        </div>
+        <div className="flex items-center">
+          <Image
+            src="/file-search-outlined.svg"
+            alt="Vercel Logo"
+            className="bg-primary text-primary-foreground rounded-full flex items-center justify-center"
+            width={100}
+            height={100}
+            priority
+          />
+
+          <div>
+            <h3 className="text-lg font-medium">Generar y revisar:</h3>
+            <p className="text-muted-foreground"> La app generará el contenido. Revisa y personaliza según tus preferencias.
+            </p>
+          </div>
+        </div>
+        <div className="flex items-center">
+          <Image
+            src="/cursor-hand-click-line.svg"
+            alt="Vercel Logo"
+            className="bg-primary text-primary-foreground rounded-full flex items-center justify-center"
+            width={100}
+            height={100}
+            priority
+          />
+
+          <div>
+            <h3 className="text-lg font-medium">Ver el JSON: </h3>
+            <p className="text-muted-foreground"> Accede a la opción para ver el contenido en formato JSON.</p>
+          </div>
+        </div>
+        <div className="flex items-center">
+          <Image
+            src="/copy.svg"
+            alt="Vercel Logo"
+            className="bg-primary text-primary-foreground rounded-full flex items-center justify-center"
+            width={100}
+            height={100}
+            priority
+          />
+
+          <div>
+            <h3 className="text-lg font-medium">Copiar el JSON:</h3>
+            <p className="text-muted-foreground"> Copia la información en formato JSON para usarla en otras aplicaciones.</p>
+          </div>
+        </div>
+        <div className="flex items-center">
+          <Image
+            src="/flag.svg"
+            alt="Vercel Logo"
+            className="bg-primary text-primary-foreground rounded-full flex items-center justify-center"
+            width={100}
+            height={100}
+            priority
+          />
+
+          <div>
+            <h3 className="text-lg font-medium">Verificar el resultado final</h3>
+            <p className="text-muted-foreground">Asegúrate de que el resultado final cumpla con tus expectativas.</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  )
+}
 /**
  * This is the main function of the Home component. It handles the user input, generates a blog post, and displays the content.
  *
@@ -174,6 +267,7 @@ export default function Home() {
    * It uses the 'unsplash-js' library to make API requests.
    */
   function getImagesAPi() {
+
     api.search
       .getPhotos({
         query: `${generation?.blogs[0].images}`,
@@ -191,88 +285,13 @@ export default function Home() {
   return (
     <div>
       <div className="container mx-auto ">
-        {!generation ? (
-          <div className="grid  pt-12 justify-center">
-            <h1 className="text-center font-bold text-2xl">Blog AI</h1>
-            <h3 className="text-justify">Blog AI es una innovadora herramienta de generación de artículos que se basa en un prompt definido por el usuario. A partir de la información proporcionada, la aplicación edita tanto el contenido textual como las imágenes, presentándolos al usuario en un formato predefinido. Las imágenes son seleccionadas automáticamente por la IA en función de una palabra clave relevante al contexto proporcionado por el usuario, garantizando una integración coherente y atractiva.</h3>
-            <div className="flex items-center">
-              <Image
-                src="/ideas-repec.svg"
-                alt="Vercel Logo"
-                className="bg-primary text-primary-foreground rounded-full flex items-center justify-center"
-                width={100}
-                height={100}
-                priority
-              />
 
-              <div>
-                <h3 className="text-lg font-medium">Proporcionar la idea:</h3>
-                <p className="text-muted-foreground">Introduce la idea del blog en el campo de texto del prompt.</p>
-              </div>
-            </div>
-            <div className="flex items-center">
-              <Image
-                src="/file-search-outlined.svg"
-                alt="Vercel Logo"
-                className="bg-primary text-primary-foreground rounded-full flex items-center justify-center"
-                width={100}
-                height={100}
-                priority
-              />
+        {!generation ?
+          <InfoApp />
+          : (<div className="  pt-12 justify-center w-full">
+            <h1 className="text-center font-bold text-4xl">Blog AI</h1></div>)
+        }
 
-              <div>
-                <h3 className="text-lg font-medium">Generar y revisar:</h3>
-                <p className="text-muted-foreground"> La app generará el contenido. Revisa y personaliza según tus preferencias.
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center">
-              <Image
-                src="/cursor-hand-click-line.svg"
-                alt="Vercel Logo"
-                className="bg-primary text-primary-foreground rounded-full flex items-center justify-center"
-                width={100}
-                height={100}
-                priority
-              />
-
-              <div>
-                <h3 className="text-lg font-medium">Ver el JSON: </h3>
-                <p className="text-muted-foreground"> Accede a la opción para ver el contenido en formato JSON.</p>
-              </div>
-            </div>
-            <div className="flex items-center">
-              <Image
-                src="/copy.svg"
-                alt="Vercel Logo"
-                className="bg-primary text-primary-foreground rounded-full flex items-center justify-center"
-                width={100}
-                height={100}
-                priority
-              />
-
-              <div>
-                <h3 className="text-lg font-medium">Copiar el JSON:</h3>
-                <p className="text-muted-foreground"> Copia la información en formato JSON para usarla en otras aplicaciones.</p>
-              </div>
-            </div>
-            <div className="flex items-center">
-              <Image
-                src="/flag.svg"
-                alt="Vercel Logo"
-                className="bg-primary text-primary-foreground rounded-full flex items-center justify-center"
-                width={100}
-                height={100}
-                priority
-              />
-
-              <div>
-                <h3 className="text-lg font-medium">Verificar el resultado final</h3>
-                <p className="text-muted-foreground">Asegúrate de que el resultado final cumpla con tus expectativas.</p>
-              </div>
-            </div>
-          </div>
-        ) : ''}
         {generation?.blogs?.map((blog, index) => (
           <div key={index} className="prose lg:prose-xl mx-auto">
             <div className="">
@@ -291,7 +310,7 @@ export default function Home() {
                 <h3 className="text-xl font-semibold mb-2">{blog?.author}</h3>
               </div>
               <div className="mb-4">
-                {!data?.response?.results[0].id ? (
+                {!data?.response?.results[0]?.id ? (
                   "IsLoading..."
                 ) : (
                   <PhotoComp
@@ -300,7 +319,7 @@ export default function Home() {
                       height: 500,
                     }}
                     style={"w-full object-cover h-96 shadow-lg"}
-                    key={data?.response?.results[0].id}
+                    key={data?.response?.results[0]?.id}
                     photo={data?.response?.results[0]}
                   />
                 )}
@@ -322,7 +341,7 @@ export default function Home() {
                 <p className="mb-4">{blog?.text?.introduction}</p>
                 <div className=" text-justify md:grid  md:grid-cols-2 gap-1 mx-2">
                   <div className=" mr-2">
-                    {!data?.response?.results[1].id ? (
+                    {!data?.response?.results[1]?.id ? (
                       "IsLoading..."
                     ) : (
                       <PhotoComp
@@ -341,7 +360,7 @@ export default function Home() {
                   </div>
                   <div>
                     <p className="mb-4">{blog?.text?.development2}</p>
-                    {!data?.response?.results[2].id ? (
+                    {!data?.response?.results[2]?.id ? (
                       "IsLoading..."
                     ) : (
                       <PhotoComp
@@ -350,7 +369,7 @@ export default function Home() {
                           height: 500,
                         }}
                         style={" object-cover"}
-                        key={data?.response?.results[2].id}
+                        key={data?.response?.results[2]?.id}
                         photo={data?.response?.results[2]}
                       />
                     )}
@@ -359,31 +378,33 @@ export default function Home() {
                 <h1 className="text-2xl font-bold">Conclusiones:</h1>
                 <p className="mb-4">{blog?.text?.conclusions}</p>
               </article>
-              {blog.images ? getImagesAPi() : "no hay imagen"}
+
 
             </div>
           </div>
         ))}
       </div>
-      {check == true ? (
-        <div className="bg-slate-200 text-black container mx-auto overflow-y-auto ">
-          <div className="ml-2 mt-2">
-            <button
-              onClick={copyCode}
-              className=" items-center justify-center whitespace-nowrap focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none border border-input font-medium rounded-md text-xs  right-4 top-5 z-10 flex h-6 gap-1 bg-white px-1.5 text-gray-500 shadow-none transition-colors hover:bg-gray-100 hover:text-gray-700 disabled:opacity-50"
-            >
-              {copied == true ? "Copiado" : "Copiar"}
-              {copied == true ? "✅" : "📋"}
-            </button>
-          </div>
+      {
+        check == true ? (
+          <div className="bg-slate-200 text-black container mx-auto overflow-y-auto ">
+            <div className="ml-2 mt-2">
+              <button
+                onClick={copyCode}
+                className=" items-center justify-center whitespace-nowrap focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none border border-input font-medium rounded-md text-xs  right-4 top-5 z-10 flex h-6 gap-1 bg-white px-1.5 text-gray-500 shadow-none transition-colors hover:bg-gray-100 hover:text-gray-700 disabled:opacity-50"
+              >
+                {copied == true ? "Copiado" : "Copiar"}
+                {copied == true ? "✅" : "📋"}
+              </button>
+            </div>
 
-          <pre ref={codeRef} className=" p-4" id="code">
-            {JSON.stringify(generation, null, 2)}
-          </pre>
-        </div>
-      ) : (
-        ""
-      )}
+            <pre ref={codeRef} className=" p-4" id="code">
+              {JSON.stringify(generation, null, 2)}
+            </pre>
+          </div>
+        ) : (
+          ""
+        )
+      }
       <div className="flex flex-col w-full max-w-md b py-24 mx-auto stretch">
         <div className="fixed bottom-0 w-full  backdrop-blur-sm max-w-md  p-2 mb-8 border  border-gray-300 rounded shadow-xl">
           <div className="flex justify-between ">
@@ -400,6 +421,7 @@ export default function Home() {
             <button
               className={`bg-blue-700  p-1 rounded-md w-1/3 text-white disabled:bg-slate-500/20 `}
               onClick={async () => {
+                setIsLoading(true);
                 const { object } = await generate(
                   "Crea un blog sobre:" + input
                 );
@@ -409,6 +431,11 @@ export default function Home() {
                     setGeneration(partialObject);
                   }
                 }
+
+
+                getImagesAPi(generation?.blog?.images)
+
+                setIsLoading(false)
               }}
               disabled={input == "" || isLoading ? true : false}
             >
@@ -416,14 +443,7 @@ export default function Home() {
             </button>
           </div>
           <div>
-            {isLoading && (
-              <div>
-                <div>Loading...</div>
-                <button type="button" onClick={() => stop()}>
-                  Stop
-                </button>
-              </div>
-            )}
+
             <div className="text-end ">
               <label htmlFor="json"> JSON </label>
               <input
@@ -437,6 +457,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 }

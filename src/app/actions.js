@@ -41,7 +41,7 @@ Mide el rendimiento de tu blog: Utiliza herramientas de análisis para entender 
                         author: z.string().describe("Un nombre aleatorio"),
                         images: z
                             .string()
-                            .describe("una palabra para una imagen blog"),
+                            .describe("una palabra para una imagen blog no puden ser palabras compuestas"),
                         keywords: z.array(
                             z.string().describe("palabras clave del blog  entre 3 y 10")
                         ),
