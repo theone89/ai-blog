@@ -25,7 +25,7 @@ Blog AI es una innovadora herramienta de generación de artículos que se basa e
 
 2. Instala las dependencias:
     ```bash
-    npm install
+    pnpm install
     # o
     yarn install
     ```
@@ -41,7 +41,7 @@ Blog AI es una innovadora herramienta de generación de artículos que se basa e
 
 1. Inicia el servidor de desarrollo:
     ```bash
-    npm run dev
+    pnpm run dev
     # o
     yarn dev
     ```
