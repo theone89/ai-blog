@@ -140,7 +140,7 @@ function InfoApp() {
           <Image
             src="/ideas-repec.svg"
             alt="Vercel Logo"
-            className="bg-primary text-primary-foreground transition duration-500  rounded-full flex items-center justify-center"
+            className="bg-primary text-primary-foreground rounded-full flex items-center justify-center"
             width={100}
             height={100}
             priority
@@ -154,7 +154,7 @@ function InfoApp() {
         <div className="flex items-center">
           <Image
             src="/file-search-outlined.svg"
-            alt="Vercel Logo"
+            alt="search ico"
             className="bg-primary text-primary-foreground rounded-full flex items-center justify-center"
             width={100}
             height={100}
@@ -231,7 +231,33 @@ export default function Home() {
   const [check, setCheck] = useState(false);
   const codeRef = useRef(null);
   const [copied, setCopied] = useState(false);
-  const [generation, setGeneration] = useState();
+  const [generation, setGeneration] = useState(/* {
+    "blogs": [
+      {
+        "title": "Descubriendo Cuba: Un Paraíso en el Caribe",
+        "subtitle": "Explorando la cultura, historia y belleza natural de la isla",
+        "date": "2023-10-01",
+        "author": "Juan Pérez",
+        "images": "cuba",
+        "keywords": [
+          "Cuba",
+          "viajes",
+          "cultura",
+          "historia",
+          "playas",
+          "gastronomía",
+          "música",
+          "naturaleza"
+        ],
+        "text": {
+          "introduction": "Cuba, la joya del Caribe, es un destino que atrae a millones de turistas cada año. Con su rica historia, vibrante cultura y paisajes impresionantes, la isla ofrece una experiencia única que combina tradición y modernidad. En este blog, exploraremos los aspectos más destacados de Cuba, desde sus playas de arena blanca hasta su música contagiosa y su deliciosa gastronomía.",
+          "development": "La historia de Cuba es fascinante y compleja. Desde la llegada de Cristóbal Colón en 1492 hasta la revolución de 1959, la isla ha sido testigo de numerosos eventos que han moldeado su identidad. La Habana, su capital, es un reflejo de esta historia, con su arquitectura colonial y su vibrante vida urbana. Pasear por el Malecón, disfrutar de un mojito en una terraza y explorar el casco antiguo son actividades imperdibles para cualquier visitante.",
+          "development2": "Además de su historia, Cuba es famosa por sus playas paradisíacas. Varadero, con sus aguas turquesas y arenas blancas, es uno de los destinos más populares. Pero no te limites a Varadero; lugares como Playa Paraiso en Cayo Largo y las playas de Cayo Coco también ofrecen paisajes de ensueño. La gastronomía cubana es otro aspecto que no puedes dejar de lado. Platos como el Ropa Vieja, el Arroz con Pollo y el Tostón son solo algunas de las delicias que podrás degustar. Y, por supuesto, la música cubana, con ritmos como el son, la salsa y el bolero, te acompañará en cada rincón de la isla.",
+          "conclusions": "Cuba es un destino que ofrece una mezcla única de historia, cultura y belleza natural. Ya sea que busques relajarte en sus playas, explorar su rica historia o disfrutar de su vibrante música, la isla tiene algo para todos. No esperes más, ¡planifica tu viaje a Cuba y descubre todo lo que este paraíso caribeño tiene para ofrecer!"
+        }
+      }
+    ]
+  } */);
 
 
 
@@ -327,12 +353,29 @@ export default function Home() {
                 <div className=" mx-auto">
                   <p className="">Tags:</p>
                   {blog?.keywords?.map((keyword, index) => (
-                    <span
+                    <div
                       key={index}
-                      className="inline-block bg-blue-200 text-blue-800 p-1 m-1 rounded"
+                      className="inline-block"
                     >
-                      <a href="#">{keyword}</a>
-                    </span>
+                      {/* <a href="#">{keyword}</a> */}
+                      <button onClick={async () => {
+                        setIsLoading(true);
+                        const { object } = await generate(
+                          "Crea un blog sobre:" + keyword
+                        );
+
+                        for await (const partialObject of readStreamableValue(object)) {
+                          if (partialObject) {
+                            setGeneration(partialObject);
+                          }
+                        }
+
+
+
+
+                        setIsLoading(false)
+                      }} className=" bg-blue-200 text-blue-800 p-1 m-1 rounded">{keyword}</button>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -406,11 +449,11 @@ export default function Home() {
         )
       }
       <div className="flex flex-col w-full max-w-md b py-24 mx-auto stretch ">
-        <div className="fixed bottom-0 w-full   backdrop-blur-sm max-w-md  p-2 mb-8 border  border-gray-300 rounded shadow-xl">
+        <div className="fixed bottom-0 w-full   backdrop-blur-sm max-w-md border-4 p-2 mb-8 border-double border-gray-200 rounded shadow-xl shadow-black/40 border-opacity-90 ">
           <div className="flex justify-between ">
             <input
               type="text"
-              className="bg-transparent w-2/3 mr-1 rounded-e-md pl-1  border-orange-200 border-b-4 focus:outline-none hover:border-orange-300"
+              className="bg-transparent w-2/3 mr-1 rounded-e-md pl-1  border-orange-400 border-b-4 focus:outline-none hover:border-orange-600"
               placeholder="¿De que trata el articulo?..."
               value={input}
               onChange={(event) => {
@@ -419,7 +462,7 @@ export default function Home() {
             />
 
             <button
-              className={`bg-blue-700  p-1 rounded-md w-1/3 text-white disabled:bg-slate-500/20 `}
+              className={`bg-blue-700  p-1 rounded-md w-1/3 text-white disabled:bg-slate-500/20 disabled:border disabled:border-double`}
               onClick={async () => {
                 setIsLoading(true);
                 const { object } = await generate(
@@ -442,10 +485,19 @@ export default function Home() {
               Enviar
             </button>
           </div>
-          <div>
+          <div className=" flex justify-between items-center">
+            <a href="#" className="font-bold text-gray-600 hover:text-gray-900"><Image
+              src="/enoceantool.svg"
+              alt="Vercel Logo"
+              className="bg-primary hover:rotate-45 text-primary-foreground rounded-full flex items-center justify-center"
+              width={50}
+              height={50}
+              priority
+            /></a>
+            <a href="https://strongfreecode.com" className="font-bold text-gray-600 hover:text-gray-900">@StrongFreeCode</a>
 
-            <div className="text-end ">
-              <label htmlFor="json"> JSON </label>
+            <div className="">
+              <label htmlFor="json" className={`font-bold text-gray-600 hover:text-gray-900`}> JSON </label>
               <input
                 type="checkbox"
                 name="json"
