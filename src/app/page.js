@@ -231,7 +231,7 @@ export default function Home() {
   const [check, setCheck] = useState(false);
   const codeRef = useRef(null);
   const [copied, setCopied] = useState(false);
-  const [generation, setGeneration] = useState(/* {
+  const [generation, setGeneration] = useState({
     "blogs": [
       {
         "title": "Descubriendo Cuba: Un Paraíso en el Caribe",
@@ -257,7 +257,7 @@ export default function Home() {
         }
       }
     ]
-  } */);
+  });
 
 
 
@@ -349,7 +349,7 @@ export default function Home() {
                 )}
 
                 <div className=" mx-auto">
-                  <p className="">Tags:</p>
+                  <p className="text-xs mt-8">Tags:</p>
                   {blog?.keywords?.map((keyword, index) => (
                     <div
                       key={index}
@@ -367,7 +367,7 @@ export default function Home() {
                           }
                         }
                         setIsLoading(false)
-                      }} className=" bg-blue-200 hover:bg-blue-400 hover:shadow-xl hover:scale-105 shadow-blue-900 hover:animate-pulse text-blue-800 p-1 m-1 rounded">{keyword}</button>
+                      }} className=" bg-blue-200/30 border-orange-400 shadow-md  border-b-2 hover:bg-blue-400 hover:shadow-xl hover:scale-95 shadow-blue-900 hover:animate-pulse text-blue-800 p-1 m-1 rounded">{keyword}</button>
                     </div>
                   ))}
                 </div>
@@ -453,7 +453,7 @@ export default function Home() {
         )
       }
       <div className="flex flex-col w-full max-w-md b py-24 mx-auto stretch ">
-        <div className="fixed bottom-0 w-full hover:border-blue-700   backdrop-blur-sm max-w-md border-4 p-2 mb-8 border-double border-gray-200 rounded shadow-xl shadow-black/40 border-opacity-90 ">
+        <div className="fixed bottom-0 w-full hover:border-orange-400   backdrop-blur-sm max-w-md border-4 p-2 mb-8 border-double border-gray-200 rounded shadow-xl shadow-black/40 border-opacity-90 ">
           <div className="flex justify-between ">
             <input
               type="text"
