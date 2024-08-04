@@ -231,33 +231,7 @@ export default function Home() {
   const [check, setCheck] = useState(false);
   const codeRef = useRef(null);
   const [copied, setCopied] = useState(false);
-  const [generation, setGeneration] = useState({
-    "blogs": [
-      {
-        "title": "Descubriendo Cuba: Un Paraíso en el Caribe",
-        "subtitle": "Explorando la cultura, historia y belleza natural de la isla",
-        "date": "2023-10-01",
-        "author": "Juan Pérez",
-        "images": "cuba",
-        "keywords": [
-          "Cuba",
-          "viajes",
-          "cultura",
-          "historia",
-          "playas",
-          "gastronomía",
-          "música",
-          "naturaleza"
-        ],
-        "text": {
-          "introduction": "Cuba, la joya del Caribe, es un destino que atrae a millones de turistas cada año. Con su rica historia, vibrante cultura y paisajes impresionantes, la isla ofrece una experiencia única que combina tradición y modernidad. En este blog, exploraremos los aspectos más destacados de Cuba, desde sus playas de arena blanca hasta su música contagiosa y su deliciosa gastronomía.",
-          "development": "La historia de Cuba es fascinante y compleja. Desde la llegada de Cristóbal Colón en 1492 hasta la revolución de 1959, la isla ha sido testigo de numerosos eventos que han moldeado su identidad. La Habana, su capital, es un reflejo de esta historia, con su arquitectura colonial y su vibrante vida urbana. Pasear por el Malecón, disfrutar de un mojito en una terraza y explorar el casco antiguo son actividades imperdibles para cualquier visitante.",
-          "development2": "Además de su historia, Cuba es famosa por sus playas paradisíacas. Varadero, con sus aguas turquesas y arenas blancas, es uno de los destinos más populares. Pero no te limites a Varadero; lugares como Playa Paraiso en Cayo Largo y las playas de Cayo Coco también ofrecen paisajes de ensueño. La gastronomía cubana es otro aspecto que no puedes dejar de lado. Platos como el Ropa Vieja, el Arroz con Pollo y el Tostón son solo algunas de las delicias que podrás degustar. Y, por supuesto, la música cubana, con ritmos como el son, la salsa y el bolero, te acompañará en cada rincón de la isla.",
-          "conclusions": "Cuba es un destino que ofrece una mezcla única de historia, cultura y belleza natural. Ya sea que busques relajarte en sus playas, explorar su rica historia o disfrutar de su vibrante música, la isla tiene algo para todos. No esperes más, ¡planifica tu viaje a Cuba y descubre todo lo que este paraíso caribeño tiene para ofrecer!"
-        }
-      }
-    ]
-  });
+  const [generation, setGeneration] = useState();
 
 
 
@@ -419,7 +393,7 @@ export default function Home() {
       </div >
       {
         check == true ? (
-          <div className="bg-slate-200 text-black container mx-auto overflow-y-auto ">
+          <div className="bg-slate-200 rounded-md scroll-smooth focus:scroll-auto text-black container mx-auto overflow-y-auto ">
             <div className="ml-2 mt-2">
               <button
                 onClick={copyCode}
@@ -444,7 +418,7 @@ export default function Home() {
               </button>
             </div>
 
-            <pre ref={codeRef} className=" p-4" id="code">
+            <pre ref={codeRef} className=" p-4 " id="code">
               {JSON.stringify(generation, null, 2)}
             </pre>
           </div>
