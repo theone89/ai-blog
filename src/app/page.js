@@ -104,6 +104,7 @@ export default function Home({ userId }) {
         isLoading={isLoading}
         handleSubmit={handleSubmit}
         check={check}
+        setGeneration={setGeneration}
         handleChange={handleChange}
         config={config}
         setShowModal={setShowModal}

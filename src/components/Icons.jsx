@@ -80,3 +80,4 @@ export function Music3Icon(props) {
         </svg>
     );
 }
+

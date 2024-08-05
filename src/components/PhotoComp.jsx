@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import Image from 'next/image';
 
 const PhotoComp = ({ photo, size, style }) => {
-    const { user, urls } = photo;
+    const { user, urls, description } = photo;
 
     return (
         <Fragment>
@@ -11,7 +11,7 @@ const PhotoComp = ({ photo, size, style }) => {
                 width={size.width}
                 className={style}
                 src={urls.regular}
-                alt="una imagen"
+                alt={description}
             />
             <a
                 className=""
