@@ -8,13 +8,12 @@ const PromptInput = ({ input, setInput, isLoading, handleSubmit, check, handleCh
     };
 
     const handleSubmitWithConfig = () => {
-        // handleSubmit(config);
-        alert(JSON.stringify(config))
+        handleSubmit(config);
     };
 
     return (
         <div className="flex flex-col w-full max-w-md py-24 mx-auto stretch">
-            {JSON.stringify(config, null, 2)}
+
             <div className="fixed bottom-0 w-full hover:border-orange-400 backdrop-blur-sm max-w-md border-4 p-2 mb-8 border-double border-gray-200 rounded shadow-xl shadow-black/40 border-opacity-90">
                 <div className="flex justify-between">
                     <input

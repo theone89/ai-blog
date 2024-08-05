@@ -8,6 +8,24 @@ const SettingsModal = ({ isOpen, onClose, setConfig }) => {
     const [provider, setProvider] = useState('openai');
     const [isValid, setIsValid] = useState(false);
 
+    const openaiModels = [
+        'gpt-4o-mini', // Asegúrate de que este modelo esté disponible y compatible
+        'gpt-4',
+        'gpt-4-0314',
+        'gpt-4-32k',
+        'gpt-4-32k-0314',
+        'gpt-3.5-turbo',
+        'gpt-3.5-turbo-0301',
+        'text-davinci-003',
+        'text-curie-001',
+        'text-babbage-001',
+        'text-ada-001',
+        'davinci',
+        'curie',
+        'babbage',
+        'ada'
+    ];
+
     useEffect(() => {
         const storedConfig = localStorage.getItem('appConfig');
         if (storedConfig) {
@@ -47,14 +65,14 @@ const SettingsModal = ({ isOpen, onClose, setConfig }) => {
         setModel('gpt-4o-mini');
         setProvider('openai');
         setIsValid(false);
-        const restetConfg = {
+        const resetConfig = {
             openaiApiKey: '',
             unsplashApiKey: '',
             temperature: 0.7,
             model: 'gpt-4o-mini',
             provider: 'openai',
-        }
-        setConfig(restetConfg)
+        };
+        setConfig(resetConfig);
         localStorage.removeItem('appConfig');
     };
 
@@ -103,8 +121,9 @@ const SettingsModal = ({ isOpen, onClose, setConfig }) => {
                         value={model}
                         onChange={(e) => setModel(e.target.value)}
                     >
-                        <option value="gpt-4o-mini">GPT-4o-Mini</option>
-                        <option value="otro-modelo">Otro Modelo</option>
+                        {openaiModels.map((model) => (
+                            <option key={model} value={model}>{model}</option>
+                        ))}
                     </select>
                 </div>
                 <div className="mb-4">
