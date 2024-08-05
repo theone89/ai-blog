@@ -47,12 +47,24 @@ export default function Home() {
 
   useEffect(() => {
     if (generation?.blogs?.length > 0 && generation.blogs[0]?.images) {
-      // Lógica para obtener imágenes de Unsplash
+      getImagesAPi();
     }
   }, [generation]);
 
   function handleChange(e) {
     setCheck(e.target.checked);
+  }
+
+  function getImagesAPi() {
+    api.search.getPhotos({
+      query: `${generation?.blogs[0]?.images}`,
+      orientation: "landscape",
+      perPage: 4,
+    }).then((result) => {
+      setPhotosResponse(result);
+    }).catch(() => {
+      console.log("something went wrong!");
+    });
   }
 
   const handleSubmit = async (config) => {
@@ -68,7 +80,6 @@ export default function Home() {
 
   return (
     <div>
-      {JSON.stringify(config, null, 2)}
       <div className="container mx-auto px-4">
         {!generation ? <InfoApp /> : (
           <div className="pt-12 justify-center w-full">

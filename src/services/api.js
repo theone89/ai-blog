@@ -1,5 +1,7 @@
-
 import { createApi } from "unsplash-js";
+
+let cachedUnsplashApi = null;
+let lastUnsplashApiKey = null;
 
 /**
  * Creates an instance of the Unsplash API client.
@@ -8,9 +10,15 @@ import { createApi } from "unsplash-js";
  * @returns {object} - An instance of the Unsplash API client.
  */
 export function createUnsplashApi(unsplashApiKey) {
-    console.log(unsplashApiKey)
-    //const apiUnsplsh = "je80tOS5RE_JEfcfLZ_DB5hkxXa3H9qb4w3Yv27VzWM"
-    return createApi({
+    if (cachedUnsplashApi && lastUnsplashApiKey === unsplashApiKey) {
+        return cachedUnsplashApi;
+    }
+
+    console.log('api imagen unsplash');
+    cachedUnsplashApi = createApi({
         accessKey: unsplashApiKey,
     });
+    lastUnsplashApiKey = unsplashApiKey;
+
+    return cachedUnsplashApi;
 }
