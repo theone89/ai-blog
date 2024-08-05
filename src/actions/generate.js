@@ -16,7 +16,7 @@ export async function generate(input, config) {
     "use server";
 
     const { openaiApiKey, temperature, model } = config;
-    console.log(openaiApiKey)
+
     const openai = createOpenAI({ apiKey: openaiApiKey })
     const stream = createStreamableValue();
 

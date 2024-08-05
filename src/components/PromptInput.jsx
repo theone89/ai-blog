@@ -1,16 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
-import SettingsModal from './SettingsModal';
 
-const PromptInput = ({ input, setInput, isLoading, handleSubmit, check, handleChange, unsplashApiKey, setUnsplashApiKey }) => {
-    const [showModal, setShowModal] = useState(false);
-    const [config, setConfig] = useState({
-        openaiApiKey: '',
-        unsplashApiKey: '',
-        temperature: 0.7,
-        model: 'gpt-4o-mini',
-        provider: 'openai',
-    });
+const PromptInput = ({ input, setInput, isLoading, handleSubmit, check, handleChange, config, setShowModal }) => {
 
     const handleToolClick = () => {
         setShowModal(true);
@@ -65,11 +56,6 @@ const PromptInput = ({ input, setInput, isLoading, handleSubmit, check, handleCh
                     </div>
                 </div>
             </div>
-            <SettingsModal
-                isOpen={showModal}
-                onClose={() => setShowModal(false)}
-                onSave={(config) => setConfig(config)}
-            />
         </div>
     );
 };

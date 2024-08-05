@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const SettingsModal = ({ isOpen, onClose, onSave }) => {
+const SettingsModal = ({ isOpen, onClose, setConfig }) => {
     const [openaiApiKey, setOpenaiApiKey] = useState('');
     const [unsplashApiKey, setUnsplashApiKey] = useState('');
     const [temperature, setTemperature] = useState(0.7);
@@ -27,8 +27,7 @@ const SettingsModal = ({ isOpen, onClose, onSave }) => {
             model,
             provider,
         };
-        localStorage.setItem('appConfig', JSON.stringify(config));
-        onSave(config);
+        setConfig(config);
         onClose();
     };
 
@@ -41,7 +40,7 @@ const SettingsModal = ({ isOpen, onClose, onSave }) => {
                 <div className="mb-4">
                     <label className="block text-sm font-bold mb-2">OpenAI API Key:</label>
                     <input
-                        type="text"
+                        type="password"
                         className="w-full p-2 border rounded"
                         value={openaiApiKey}
                         onChange={(e) => setOpenaiApiKey(e.target.value)}
@@ -50,7 +49,7 @@ const SettingsModal = ({ isOpen, onClose, onSave }) => {
                 <div className="mb-4">
                     <label className="block text-sm font-bold mb-2">Unsplash API Key:</label>
                     <input
-                        type="text"
+                        type="password"
                         className="w-full p-2 border rounded"
                         value={unsplashApiKey}
                         onChange={(e) => setUnsplashApiKey(e.target.value)}

@@ -1,15 +1,15 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { generate } from "../actions/generate";
 import { createUnsplashApi } from "../services/api";
 import { readStreamableValue } from "ai/rsc";
-import Image from "next/image";
-import PhotoComp from "../components/PhotoComp";
 import InfoApp from "../components/InfoApp";
 import BlogPost from "../components/BlogPost";
 import JsonDisplay from "../components/JsonDisplay";
 import PromptInput from "../components/PromptInput";
+import SettingsModal from "../components/SettingsModal";
+import { encodeApiKey, decodeApiKey } from '../utils/encryptionUtils';
 
 export default function Home() {
   const [data, setPhotosResponse] = useState(null);
@@ -18,7 +18,6 @@ export default function Home() {
   const [check, setCheck] = useState(false);
   const [copied, setCopied] = useState(false);
   const [generation, setGeneration] = useState(null);
-  const [unsplashApiKey, setUnsplashApiKey] = useState("");
   const [config, setConfig] = useState({
     openaiApiKey: '',
     unsplashApiKey: '',
@@ -26,47 +25,34 @@ export default function Home() {
     model: 'gpt-4o-mini',
     provider: 'openai',
   });
+  const [showModal, setShowModal] = useState(false);
 
   const api = createUnsplashApi(config.unsplashApiKey);
 
   useEffect(() => {
     const storedConfig = localStorage.getItem('appConfig');
     if (storedConfig) {
-      setConfig(JSON.parse(storedConfig));
+      try {
+        const parsedConfig = JSON.parse(storedConfig);
+        setConfig({
+          ...parsedConfig,
+          openaiApiKey: decodeApiKey(parsedConfig.openaiApiKey),
+          unsplashApiKey: decodeApiKey(parsedConfig.unsplashApiKey),
+        });
+      } catch (error) {
+        console.error('Error al decodificar la configuración:', error);
+      }
     }
   }, []);
 
   useEffect(() => {
     if (generation?.blogs?.length > 0 && generation.blogs[0]?.images) {
-      getImagesAPi();
+      // Lógica para obtener imágenes de Unsplash
     }
   }, [generation]);
 
   function handleChange(e) {
     setCheck(e.target.checked);
-  }
-
-  const copyCode = () => {
-    const code = codeRef.current?.innerText;
-    if (code) {
-      navigator.clipboard.writeText(code).then(() => {
-        setCopied(true);
-      }).catch((err) => {
-        console.error("Error al copiar el código: ", err);
-      });
-    }
-  };
-
-  function getImagesAPi() {
-    api.search.getPhotos({
-      query: `${generation?.blogs[0]?.images}`,
-      orientation: "landscape",
-      perPage: 4,
-    }).then((result) => {
-      setPhotosResponse(result);
-    }).catch(() => {
-      console.log("something went wrong!");
-    });
   }
 
   const handleSubmit = async (config) => {
@@ -82,6 +68,7 @@ export default function Home() {
 
   return (
     <div>
+      {JSON.stringify(config, null, 2)}
       <div className="container mx-auto px-4">
         {!generation ? <InfoApp /> : (
           <div className="pt-12 justify-center w-full">
@@ -102,8 +89,21 @@ export default function Home() {
         handleSubmit={handleSubmit}
         check={check}
         handleChange={handleChange}
-        unsplashApiKey={config.unsplashApiKey}
-        setUnsplashApiKey={setUnsplashApiKey}
+        config={config}
+        setShowModal={setShowModal}
+      />
+      <SettingsModal
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+        setConfig={(newConfig) => {
+          const encodedConfig = {
+            ...newConfig,
+            openaiApiKey: encodeApiKey(newConfig.openaiApiKey),
+            unsplashApiKey: encodeApiKey(newConfig.unsplashApiKey),
+          };
+          localStorage.setItem('appConfig', JSON.stringify(encodedConfig));
+          setConfig(newConfig);
+        }}
       />
     </div>
   );

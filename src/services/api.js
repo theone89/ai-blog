@@ -9,8 +9,8 @@ import { createApi } from "unsplash-js";
  */
 export function createUnsplashApi(unsplashApiKey) {
     console.log(unsplashApiKey)
-    const apiUnsplsh = "je80tOS5RE_JEfcfLZ_DB5hkxXa3H9qb4w3Yv27VzWM"
+    //const apiUnsplsh = "je80tOS5RE_JEfcfLZ_DB5hkxXa3H9qb4w3Yv27VzWM"
     return createApi({
-        accessKey: apiUnsplsh,
+        accessKey: unsplashApiKey,
     });
 }
