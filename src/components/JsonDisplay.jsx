@@ -9,6 +9,9 @@ const JsonDisplay = ({ generation, copied, setCopied }) => {
         if (code) {
             navigator.clipboard.writeText(code).then(() => {
                 setCopied(true);
+                setTimeout(() => {
+                    setCopied(false);
+                }, 2000)
             }).catch((err) => {
                 console.error("Error al copiar el código: ", err);
             });
@@ -27,15 +30,15 @@ const JsonDisplay = ({ generation, copied, setCopied }) => {
                         src="/check.svg"
                         alt="Copy icon"
                         className="bg-primary text-primary-foreground rounded-full flex items-center justify-center"
-                        width={25}
-                        height={25}
+                        width={30}
+                        height={30}
                         priority
                     />) : (<Image
                         src="/copy.svg"
                         alt="Copy icon"
                         className="bg-primary text-primary-foreground rounded-full flex items-center justify-center"
-                        width={25}
-                        height={25}
+                        width={30}
+                        height={30}
                         priority
                     />)}
                 </button>
