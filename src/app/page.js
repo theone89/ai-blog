@@ -11,7 +11,7 @@ import PromptInput from "../components/PromptInput";
 import SettingsModal from "../components/SettingsModal";
 import { encodeApiKey, decodeApiKey } from '../utils/encryptionUtils';
 
-export default function Home() {
+export default function Home({ userId }) {
   const [data, setPhotosResponse] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [input, setInput] = useState("");
@@ -27,7 +27,7 @@ export default function Home() {
   });
   const [showModal, setShowModal] = useState(false);
 
-  const api = createUnsplashApi(config.unsplashApiKey);
+  const unsplashApi = createUnsplashApi(userId, config.unsplashApiKey);
 
   useEffect(() => {
     const storedConfig = localStorage.getItem('appConfig');
@@ -56,7 +56,7 @@ export default function Home() {
   }
 
   function getImagesAPi() {
-    api.search.getPhotos({
+    unsplashApi.search.getPhotos({
       query: `${generation?.blogs[0]?.images}`,
       orientation: "landscape",
       perPage: 4,
@@ -69,7 +69,12 @@ export default function Home() {
 
   const handleSubmit = async (config) => {
     setIsLoading(true);
-    const { object } = await generate("Crea un blog sobre:" + input, config);
+    const { object } = await generate(
+      "Crea un blog sobre:" + input,
+      config.openaiApiKey,
+      config.temperature,
+      config.model
+    );
     for await (const partialObject of readStreamableValue(object)) {
       if (partialObject) {
         setGeneration(partialObject);

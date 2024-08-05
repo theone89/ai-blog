@@ -9,15 +9,15 @@ import { createOpenAI } from "@ai-sdk/openai";
  * It uses the OpenAI API to generate the content and returns it as a stream.
  *
  * @param {string} input - The input text for generating the blog post content.
- * @param {object} config - Configuration object containing api keys, temperature, model, and provider.
+ * @param {string} openaiApiKey - The API key for OpenAI.
+ * @param {number} temperature - The temperature setting for the OpenAI model.
+ * @param {string} model - The model to use for generating the content.
  * @returns {object} - An object containing the generated blog post content as a stream.
  */
-export async function generate(input, config) {
+export async function generate(input, openaiApiKey, temperature, model) {
     "use server";
 
-    const { openaiApiKey, temperature, model } = config;
-
-    const openai = createOpenAI({ apiKey: openaiApiKey })
+    const openai = createOpenAI({ apiKey: openaiApiKey });
     const stream = createStreamableValue();
 
     (async () => {
