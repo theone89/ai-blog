@@ -1,19 +1,23 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
+import SettingsModal from './SettingsModal';
 
 const PromptInput = ({ input, setInput, isLoading, handleSubmit, check, handleChange, unsplashApiKey, setUnsplashApiKey }) => {
     const [showModal, setShowModal] = useState(false);
-    const [openaiApiKey, setOpenaiApiKey] = useState('sk-proj-9X3Rn5RzGcvAcZOZAc9eT3BlbkFJoY8lLYtDUF7C7S4fgiN0');
-    const [temperature, setTemperature] = useState(0.7);
-    const [model, setModel] = useState('gpt-4o-mini');
-    const [provider, setProvider] = useState('openai');
+    const [config, setConfig] = useState({
+        openaiApiKey: '',
+        unsplashApiKey: '',
+        temperature: 0.7,
+        model: 'gpt-4o-mini',
+        provider: 'openai',
+    });
 
     const handleToolClick = () => {
         setShowModal(true);
     };
 
     const handleSubmitWithConfig = () => {
-        handleSubmit({ openaiApiKey, unsplashApiKey, temperature, model, provider });
+        handleSubmit(config);
     };
 
     return (
@@ -61,63 +65,11 @@ const PromptInput = ({ input, setInput, isLoading, handleSubmit, check, handleCh
                     </div>
                 </div>
             </div>
-            {showModal && (
-                <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-                    <div className="bg-white p-4 rounded-lg shadow-lg">
-                        <h2 className="text-lg font-bold mb-2">Configuración</h2>
-                        <div className="mb-4">
-                            <label className="block text-sm font-bold mb-2">OpenAI API Key:</label>
-                            <input
-                                type="text"
-                                className="w-full p-2 border rounded"
-                                value={openaiApiKey}
-                                onChange={(e) => setOpenaiApiKey(e.target.value)}
-                            />
-                        </div>
-                        <div className="mb-4">
-                            <label className="block text-sm font-bold mb-2">Unsplash API Key:</label>
-                            <input
-                                type="text"
-                                className="w-full p-2 border rounded"
-                                value={unsplashApiKey}
-                                onChange={(e) => setUnsplashApiKey(e.target.value)}
-                            />
-                        </div>
-                        <div className="mb-4">
-                            <label className="block text-sm font-bold mb-2">Temperatura del Modelo:</label>
-                            <input
-                                type="number"
-                                className="w-full p-2 border rounded"
-                                value={temperature}
-                                onChange={(e) => setTemperature(parseFloat(e.target.value))}
-                            />
-                        </div>
-                        <div className="mb-4">
-                            <label className="block text-sm font-bold mb-2">Modelo:</label>
-                            <select
-                                className="w-full p-2 border rounded"
-                                value={model}
-                                onChange={(e) => setModel(e.target.value)}
-                            >
-                                <option value="gpt-4o-mini">GPT-4o-Mini</option>
-                                <option value="otro-modelo">Otro Modelo</option>
-                            </select>
-                        </div>
-                        <div className="mb-4">
-                            <label className="block text-sm font-bold mb-2">Proveedor:</label>
-                            <select
-                                className="w-full p-2 border rounded"
-                                value={provider}
-                                onChange={(e) => setProvider(e.target.value)}
-                            >
-                                <option value="openai">OpenAI</option>
-                                <option value="otro-proveedor">Otro Proveedor</option>
-                            </select>
-                        </div>
-                        <button onClick={() => setShowModal(false)} className="mt-4 px-4 py-2 bg-blue-500 text-white rounded">Cerrar</button>
-                    </div>
-                </div>
-            )}
+            <SettingsModal
+                isOpen={showModal}
+                onClose={() => setShowModal(false)}
+                onSave={(config) => setConfig(config)}
+            />
         </div>
     );
 };

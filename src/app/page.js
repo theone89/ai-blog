@@ -1,15 +1,15 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import { generate } from "@/actions/generate";
-import { createUnsplashApi } from "@/services/api";
+import { generate } from "../actions/generate";
+import { createUnsplashApi } from "../services/api";
 import { readStreamableValue } from "ai/rsc";
 import Image from "next/image";
-import PhotoComp from "@/components/PhotoComp";
-import InfoApp from "@/components/InfoApp";
-import BlogPost from "@/components/BlogPost";
-import JsonDisplay from "@/components/JsonDisplay";
-import PromptInput from "@/components/PromptInput";
+import PhotoComp from "../components/PhotoComp";
+import InfoApp from "../components/InfoApp";
+import BlogPost from "../components/BlogPost";
+import JsonDisplay from "../components/JsonDisplay";
+import PromptInput from "../components/PromptInput";
 
 export default function Home() {
   const [data, setPhotosResponse] = useState(null);
@@ -19,15 +19,27 @@ export default function Home() {
   const [copied, setCopied] = useState(false);
   const [generation, setGeneration] = useState(null);
   const [unsplashApiKey, setUnsplashApiKey] = useState("");
+  const [config, setConfig] = useState({
+    openaiApiKey: '',
+    unsplashApiKey: '',
+    temperature: 0.7,
+    model: 'gpt-4o-mini',
+    provider: 'openai',
+  });
 
-  const api = createUnsplashApi(unsplashApiKey);
+  const api = createUnsplashApi(config.unsplashApiKey);
+
+  useEffect(() => {
+    const storedConfig = localStorage.getItem('appConfig');
+    if (storedConfig) {
+      setConfig(JSON.parse(storedConfig));
+    }
+  }, []);
 
   useEffect(() => {
     if (generation?.blogs?.length > 0 && generation.blogs[0]?.images) {
-
       getImagesAPi();
     }
-
   }, [generation]);
 
   function handleChange(e) {
@@ -45,17 +57,16 @@ export default function Home() {
     }
   };
 
-  async function getImagesAPi() {
-    try {
-      const result = await api.search.getPhotos({
-        query: `${generation?.blogs[0]?.images}`,
-        orientation: "landscape",
-        perPage: 4,
-      });
+  function getImagesAPi() {
+    api.search.getPhotos({
+      query: `${generation?.blogs[0]?.images}`,
+      orientation: "landscape",
+      perPage: 4,
+    }).then((result) => {
       setPhotosResponse(result);
-    } catch (error) {
-      console.log("something went wrong!", error);
-    }
+    }).catch(() => {
+      console.log("something went wrong!");
+    });
   }
 
   const handleSubmit = async (config) => {
@@ -91,7 +102,7 @@ export default function Home() {
         handleSubmit={handleSubmit}
         check={check}
         handleChange={handleChange}
-        unsplashApiKey={unsplashApiKey}
+        unsplashApiKey={config.unsplashApiKey}
         setUnsplashApiKey={setUnsplashApiKey}
       />
     </div>

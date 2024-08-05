@@ -8,7 +8,7 @@ import { createApi } from "unsplash-js";
  * @returns {object} - An instance of the Unsplash API client.
  */
 export function createUnsplashApi(unsplashApiKey) {
-
+    console.log(unsplashApiKey)
     const apiUnsplsh = "je80tOS5RE_JEfcfLZ_DB5hkxXa3H9qb4w3Yv27VzWM"
     return createApi({
         accessKey: apiUnsplsh,
